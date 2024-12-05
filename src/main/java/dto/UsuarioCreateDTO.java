@@ -1,32 +1,20 @@
-package modelo;
+package dto;
 
 import java.time.LocalDateTime;
 
-public class Usuarios {
-    private int id;
+public class UsuarioCreateDTO {
     private String nombre;
     private String username;
     private String email;
     private LocalDateTime fechaNacimiento;
     private String password;
-    private int animal;
+    private Integer animal;
 
     // constructores
-
-    public Usuarios() {
+    public UsuarioCreateDTO() {
     }
 
-    public Usuarios(int id, String nombre, String username, String email, LocalDateTime fecha_nacimiento, String password, int animal) {
-        this.id = id;
-        this.nombre = nombre;
-        this.username = username;
-        this.email = email;
-        this.fechaNacimiento = fecha_nacimiento;
-        this.password = password;
-        this.animal = animal;
-    }
-
-    public Usuarios(String nombre, String username, String email, LocalDateTime fechaNacimiento, String password, int animal) {
+    public UsuarioCreateDTO(String nombre, String username, String email, LocalDateTime fechaNacimiento, String password, Integer animal) {
         this.nombre = nombre;
         this.username = username;
         this.email = email;
@@ -36,14 +24,6 @@ public class Usuarios {
     }
 
     // Getter & Setter
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getNombre() {
         return nombre;
@@ -85,25 +65,23 @@ public class Usuarios {
         this.password = password;
     }
 
-    public int getAnimal() {
+    public Integer getAnimal() {
         return animal;
     }
 
-    public void setAnimal(int animal) {
+    public void setAnimal(Integer animal) {
         this.animal = animal;
     }
-
 
     // toString
 
     @Override
     public String toString() {
-        return "Usuarios{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
+        return "UsuarioCreateDTO{" +
+                "nombre='" + nombre + '\'' +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
-                ", fecha_nacimiento=" + fechaNacimiento +
+                ", fechaNacimiento=" + fechaNacimiento +
                 ", password='" + password + '\'' +
                 ", animal=" + animal +
                 '}';

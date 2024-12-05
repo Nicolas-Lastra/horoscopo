@@ -18,7 +18,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Override
     public boolean save(Usuarios usuario) {
-        String query = "INSERT INTO usuarios (nombre, username, email, fecha_nacimiento, password, animal) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO usuarios (nombre, username, email, fecha_nacimiento, password, animal) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -38,12 +38,62 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Override
     public Optional<Usuarios> findByUsername(String username) {
-        return Optional.empty();
+        String query = "SELECT id, nombre, username, email, fecha_nacimiento, password, animal FROM usuarios WHERE username = ?";
+
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return Optional.of(new Usuarios(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getTimestamp("fecha_nacimiento").toLocalDateTime(),
+                        rs.getString("password"),
+                        rs.getInt("animal")
+                ));
+            }
+
+            return Optional.empty();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
     }
 
     @Override
     public Optional<Usuarios> findByEmail(String email) {
-        return Optional.empty();
+        String query = "SELECT id, nombre, username, email, fecha_nacimiento, password, animal FROM usuarios WHERE email = ?";
+
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return Optional.of(new Usuarios(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getTimestamp("fecha_nacimiento").toLocalDateTime(),
+                        rs.getString("password"),
+                        rs.getInt("animal")
+                ));
+            }
+
+            return Optional.empty();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
     }
 
     @Override
