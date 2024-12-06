@@ -12,6 +12,11 @@ public class Horoscopo {
     public Horoscopo() {
     }
 
+    public Horoscopo(int id, String animal) {
+        this.id = id;
+        this.animal = animal;
+    }
+
     public Horoscopo(int id, String animal, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
         this.id = id;
         this.animal = animal;

@@ -33,15 +33,12 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         LocalDateTime fechaMinima = LocalDateTime.MIN;
+        System.out.println(usuario.getFechaNacimiento());
         if (usuario.getFechaNacimiento() == null || usuario.getFechaNacimiento().equals(fechaMinima)) {
             return false;
         }
 
         if (!usuario.getPassword().equals(confirmPassword)) {
-            return false;
-        }
-
-        if (usuario.getAnimal() == null || usuario.getAnimal().describeConstable().isEmpty() ) {
             return false;
         }
 
@@ -51,10 +48,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public boolean registrarUsuario(UsuarioCreateDTO usuario, String confirmPassword) {
-
+        
         if (!validarDatosRegistro(usuario, confirmPassword)) {
             return false;
         }
+
+        // Setear animal en usuario
+
+        calcularAnimal(usuario);
 
         // Verifica si el nombre de usuario ya existe
         if (usuarioRepository.findByUsername(usuario.getUsername()).isPresent()) {
@@ -65,6 +66,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             return false;
         }
 
+        System.out.println(usuario.getFechaNacimiento());
         return usuarioRepository.save(UsuarioMapper.toEntity(usuario));
     }
 
@@ -100,5 +102,10 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .stream()
                 .map(UsuarioMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    private void calcularAnimal(UsuarioCreateDTO usuario) {
+        int animal = usuario.getFechaNacimiento().getYear() % 12;
+        usuario.setAnimal(animal);
     }
 }

@@ -14,6 +14,14 @@ public class UsuarioCreateDTO {
     public UsuarioCreateDTO() {
     }
 
+    public UsuarioCreateDTO(String nombre, String username, String email, LocalDateTime fechaNacimiento, String password) {
+        this.nombre = nombre;
+        this.username = username;
+        this.email = email;
+        this.fechaNacimiento = fechaNacimiento;
+        this.password = password;
+    }
+
     public UsuarioCreateDTO(String nombre, String username, String email, LocalDateTime fechaNacimiento, String password, Integer animal) {
         this.nombre = nombre;
         this.username = username;
