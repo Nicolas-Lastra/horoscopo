@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Optional" %>
 <%@ page import="modelo.Horoscopo" %>
+<%@ page import="dto.HoroscopoResponseDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,8 +14,8 @@
     }
 
     UsuarioResponseDTO usuarioActual = (UsuarioResponseDTO) session.getAttribute("usuarioActual");
-    Horoscopo horoscopo = new Horoscopo();
-    ;
+    HoroscopoResponseDTO horoscopoActual = (HoroscopoResponseDTO) session.getAttribute("horoscopoActual");
+
 %>
 
 <head>
@@ -52,7 +53,8 @@
                         <div class="card-body">
                             <p><strong>Username:</strong> <%= usuarioActual.getUsername() %></p>
                             <p><strong>Email:</strong> <%= usuarioActual.getEmail() %></p>
-                            <p><strong>Horóscopo Chino:</strong> <%= usuarioActual.getAnimal() %></p>
+                            <p><strong>Id asociada a tu horóscopo:</strong> <%= usuarioActual.getAnimal() %></p>
+                            <p><strong>Tu animal interior:</strong> <%= horoscopoActual.getAnimal() %></p>
                         </div>
                     </div>
                 </div>

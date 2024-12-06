@@ -24,6 +24,12 @@ public class Horoscopo {
         this.fechaFin = fechaFin;
     }
 
+    public Horoscopo(String animal, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+        this.animal = animal;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+    }
+
     // Getter & Setter
 
     public int getId() {

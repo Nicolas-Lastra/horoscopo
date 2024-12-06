@@ -3,7 +3,6 @@ package repository;
 import configuration.DatabaseConnection;
 import modelo.Horoscopo;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +17,7 @@ public class HoroscopoRepositoryImpl implements HoroscopoRepository {
 
     @Override
     public Optional<Horoscopo> encontrarAnimalPorId(int id) {
-        String query = "SELECT animal FROM horoscopo WHERE animal = ?";
+        String query = "SELECT animal, fecha_inicio, fecha_fin FROM horoscopo WHERE id = ?";
 
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -28,8 +27,9 @@ public class HoroscopoRepositoryImpl implements HoroscopoRepository {
 
             if (rs.next()) {
                 return Optional.of(new Horoscopo(
-                        rs.getInt("id"),
-                        rs.getString("animal")
+                        rs.getString("animal"),
+                        rs.getTimestamp("fecha_inicio").toLocalDateTime(),
+                        rs.getTimestamp("fecha_fin").toLocalDateTime()
                 ));
             }
 
