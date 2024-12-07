@@ -45,17 +45,25 @@
                         Usuario o contraseña incorrectas
                     </div>
                     <% } %>
+
                     <!-- Información del usuario actual -->
                     <div class="card mb-4">
                         <div class="card-header">
                             Tu información
                         </div>
+
                         <div class="card-body">
                             <p><strong>Username:</strong> <%= usuarioActual.getUsername() %></p>
                             <p><strong>Email:</strong> <%= usuarioActual.getEmail() %></p>
                             <p><strong>Id asociada a tu horóscopo:</strong> <%= usuarioActual.getAnimal() %></p>
                             <p><strong>Tu animal interior:</strong> <%= horoscopoActual.getAnimal() %></p>
                         </div>
+
+                        <!-- Botón cerrar sesión -->
+                        <div class="d-grid gap-2 mt-4">
+                            <a href="logout" class="btn btn-danger">Cerrar sesión</a>
+                        </div>
+
                     </div>
                 </div>
             </div>

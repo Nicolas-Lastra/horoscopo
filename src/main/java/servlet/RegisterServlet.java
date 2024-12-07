@@ -26,9 +26,36 @@ public class RegisterServlet extends HttpServlet {
         String nombre = req.getParameter("nombre");
         String username = req.getParameter("username");
         String email = req.getParameter("email");
-        LocalDateTime fechaNacimiento = LocalDateTime.parse(req.getParameter("fechaNacimiento"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        LocalDateTime fechaNacimiento;
+
+        try {
+            fechaNacimiento = LocalDateTime.parse(req.getParameter("fechaNacimiento"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        } catch (Exception e) {
+            System.out.println("Error al parsear fecha de nacimiento: " + e.getMessage());
+            resp.sendRedirect("register.jsp?error=fecha_invalida");
+            return;
+        }
+
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
+
+        // validacion
+        if (nombre == null || nombre.trim().isEmpty() ||
+                username == null || username.trim().isEmpty() ||
+                email == null || email.trim().isEmpty() ||
+                password == null || password.trim().isEmpty() ||
+                confirmPassword == null || confirmPassword.trim().isEmpty()) {
+
+            System.out.println("Error: Campos vacíos detectados");
+            resp.sendRedirect("register.jsp?error=campos_vacios");
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            System.out.println("Error: Las contraseñas no coinciden");
+            resp.sendRedirect("register.jsp?error=password_no_coincide");
+            return;
+        }
 
         // Construir DTO en base a parametros
         UsuarioCreateDTO usuario = new UsuarioCreateDTO(
@@ -39,13 +66,13 @@ public class RegisterServlet extends HttpServlet {
                 password
         );
         System.out.println(usuario);
-        System.out.println(fechaNacimiento);
+        System.out.println("Fecha de nacimiento procesada: " + fechaNacimiento);
 
         // Confirmar registro de nuevo usuario con confirmPassword
         if (usuarioService.registrarUsuario(usuario, confirmPassword)) {
             resp.sendRedirect("login");
         } else {
-            resp.sendRedirect("index.jsp?error=1");
+            resp.sendRedirect("register.jsp?error=1");
         }
 
     }
