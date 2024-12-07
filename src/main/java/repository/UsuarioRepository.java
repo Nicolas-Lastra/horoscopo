@@ -10,4 +10,8 @@ public interface UsuarioRepository {
     Optional<Usuarios> findByUsername(String username);
     Optional<Usuarios> findByEmail(String email);
     List<Usuarios> findAll();
+    Optional<Usuarios> findById(int id);
+
+    boolean update(Usuarios usuario);
+    boolean deleteById(int id);
 }

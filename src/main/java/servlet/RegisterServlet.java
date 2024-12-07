@@ -65,8 +65,6 @@ public class RegisterServlet extends HttpServlet {
                 fechaNacimiento,
                 password
         );
-        System.out.println(usuario);
-        System.out.println("Fecha de nacimiento procesada: " + fechaNacimiento);
 
         // Confirmar registro de nuevo usuario con confirmPassword
         if (usuarioService.registrarUsuario(usuario, confirmPassword)) {

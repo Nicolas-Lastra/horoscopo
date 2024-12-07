@@ -41,7 +41,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         LocalDateTime fechaMinima = LocalDateTime.MIN;
-        System.out.println(usuario.getFechaNacimiento());
         if (usuario.getFechaNacimiento() == null || usuario.getFechaNacimiento().equals(fechaMinima)) {
             return false;
         }
@@ -57,7 +56,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public boolean registrarUsuario(UsuarioCreateDTO usuario, String confirmPassword) {
 
-        System.out.println("Iniciando registro para: " + usuario);
         if (!validarDatosRegistro(usuario, confirmPassword)) {
             System.out.println("Error: Datos de registro inválidos.");
             return false;
@@ -83,12 +81,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             return false;
         }
 
-        boolean resultado = usuarioRepository.save(UsuarioMapper.toEntity(usuario));
-        System.out.println("Resultado de guardar usuario: " + resultado);
-        return resultado;
-
-        /*System.out.println(usuario.getFechaNacimiento());
-        return usuarioRepository.save(UsuarioMapper.toEntity(usuario));*/
+        return usuarioRepository.save(UsuarioMapper.toEntity(usuario));
     }
 
     @Override
@@ -125,11 +118,6 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .collect(Collectors.toList());
     }
 
-    /*private void calcularAnimal(UsuarioCreateDTO usuario) {
-        int animal = usuario.getFechaNacimiento().getYear() % 12;
-        usuario.setAnimal(animal);
-    }*/
-
     private void calcularAnimalporFecha(UsuarioCreateDTO usuario) {
         LocalDateTime fechaAnimal = usuario.getFechaNacimiento();
 
@@ -140,7 +128,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         try {
             int animal = horoscopoRepository.findAnimalByDate(fechaAnimal);
             usuario.setAnimal(animal);
-            System.out.println("Animal asignado al usuario: " + animal);
         } catch (IllegalStateException e) {
             System.out.println("Error al asignar animal: " + e.getMessage());
             throw new IllegalArgumentException("No se pudo asignar un animal al usuario.");

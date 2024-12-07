@@ -153,5 +153,3 @@ VALUES ('Admin Principal', 'admin', 'admin@miapp.com', 'admin123');
 SELECT * FROM horoscopo;
 SELECT * FROM usuarios;
 SELECT * FROM admins;
-    
-DROP DATABASE horoscopodb; -- borrar base de datos, último recurso

@@ -73,8 +73,6 @@ public class HoroscopoRepositoryImpl implements HoroscopoRepository {
     public int findAnimalByDate(LocalDateTime fechaNacimiento) {
         String query = "SELECT id FROM horoscopo WHERE ? BETWEEN fecha_inicio AND fecha_fin";
 
-        System.out.println("Fecha de nacimiento recibida: " + fechaNacimiento);
-
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
 

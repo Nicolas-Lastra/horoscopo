@@ -20,10 +20,7 @@ public class AdminServiceImpl implements AdminService {
         Optional<AdminResponseDTO> adminOptional = adminRepository.findByUsername(username);
         if (adminOptional.isPresent()) {
             AdminResponseDTO admin = adminOptional.get();
-            System.out.println("Admin encontrado: " + admin.getUsername());
-            System.out.println("Contraseña recuperada: " + admin.getPassword());
             if (admin.getPassword().equals(password)) {
-                System.out.println("Contraseña válida");
                 return Optional.of(admin);
             } else {
                 System.out.println("Contraseña incorrecta");
